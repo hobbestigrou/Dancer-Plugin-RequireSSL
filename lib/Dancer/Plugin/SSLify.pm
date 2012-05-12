@@ -6,7 +6,7 @@ use warnings;
 use Dancer ':syntax';
 use Dancer::Plugin;
 
-#ABSTRACT: Configure your application to redirect all incoming requests to HHTPS
+#ABSTRACT: Configure your application to redirect all incoming requests to HTTPS
 
 =method sslify
 
