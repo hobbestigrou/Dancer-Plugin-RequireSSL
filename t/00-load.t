@@ -5,7 +5,7 @@ use Test::More tests => 1;                      # last test to print
 
 
 BEGIN {
-    use_ok( 'Dancer::Plugin::SSLify' ) || print "Bail out";
+    use_ok( 'Dancer::Plugin::RequireSSL' ) || print "Bail out";
 }
 
-diag( "Testing Dancer::Plugin::SSLify $Dancer::Plugin::SSLify::VERSION, Perl $], $^X" );
+diag( "Testing Dancer::Plugin::RequireSSL $Dancer::Plugin::RequireSSL::VERSION, Perl $], $^X" );
