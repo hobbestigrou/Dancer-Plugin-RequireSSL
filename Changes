@@ -1,6 +1,8 @@
-Revision history for Dancer-Plugin-SSLify
+Revision history for Dancer-Plugin-RequireSSL
 
 {{$NEXT}}
+
+    Rename the project.
 
 0.121330  2012-05-12 21:47:39 Europe/Paris
     Initial version developed.

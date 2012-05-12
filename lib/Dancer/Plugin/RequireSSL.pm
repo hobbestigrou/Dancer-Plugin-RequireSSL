@@ -1,4 +1,4 @@
-package Dancer::Plugin::SSLify;
+package Dancer::Plugin::RequireSSL;
 
 use strict;
 use warnings;
@@ -8,9 +8,9 @@ use Dancer::Plugin;
 
 #ABSTRACT: Configure your application to redirect all incoming requests to HTTPS
 
-=method sslify
+=method require_ssl
 
-    sslify();
+    require_ssl();
 
 Redirect all incoming requests to https.
 
@@ -19,7 +19,7 @@ Redirect all incoming requests to https.
 
 =cut
 
-register sslify => sub {
+register require_ssl => sub {
     hook before => sub {
         my $req = request;
         _redirect_to_ssl($req);
@@ -65,9 +65,9 @@ register_plugin;
 =head1 SYNOPSIS
 
     use Dancer ':syntax';
-    use Dancer::Plugin::SSLify;
+    use Dancer::Plugin::RequireSSL;
 
-    sslify();
+    require_ssl();
 
     get '/' => sub {
         template index;
@@ -76,7 +76,7 @@ register_plugin;
 =head1 CONFIGURATION
 
   plugins:
-    SSLify:
+    RequireSSL:
       hsts_age: 31536000
       hsts_include_subdomains: 0
 
@@ -84,7 +84,7 @@ register_plugin;
 
 This module is developed on Github at:
 
-L<http://github.com/hobbestigrou/Dancer-Plugin-SSLify>
+L<http://github.com/hobbestigrou/Dancer-Plugin-RequireSSL>
 
 =head1 ACKNOWLEDGEMENTS
 
@@ -98,7 +98,7 @@ Please report any bugs or feature requests in github.
 
 You can find documentation for this module with the perldoc command.
 
-    perldoc Dancer::Plugin::SSLify
+    perldoc Dancer::Plugin::RequireSSL
 
 =head1 SEE ALSO
 
