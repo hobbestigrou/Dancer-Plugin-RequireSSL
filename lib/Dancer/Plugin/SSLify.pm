@@ -20,9 +20,11 @@ register sslify => sub {
 
 sub _redirect_to_ssl {
     my $req = shift;
-    if ( ! request->secure ) {
+
+    if ( ! request->secure
+        && setting('environment') ne 'development' ) {
         if ( $req->base =~ /http:\/\//
-            || $req->header('X-Forwarded-Proto') !~ 'https') {
+            || $req->header('X-Forwarded-Proto') !~ 'https' ) {
             my $url = 'https://' . $req->host . $req->path;
 
             return redirect($url);
