@@ -38,7 +38,9 @@ sub _redirect_to_ssl {
         && setting('environment') ne 'development' ) {
         if ( $req->base =~ /http:\/\//
             || $req->header('X-Forwarded-Proto') !~ 'https' ) {
-            my $url = 'https://' . $req->host . $req->path;
+            my $settings = plugin_setting;
+            my $host     = $settings->{https_host} // $req->host;
+            my $url      = 'https://' . $host . $req->path;
 
             return redirect($url);
         }
