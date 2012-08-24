@@ -9,7 +9,7 @@ use Dancer::Test;
 use lib 't/lib';
 use TestApp;
 
-plan tests => 3;
+plan tests => 5;
 
 setting environment => 'test';
 my $res = dancer_response GET => '/';
@@ -19,3 +19,10 @@ TODO: {
     local $TODO = 'Does work for this moment';
     is $res->{headers}->{'strict-transport-security'}, 'max-age=31536000', "time max-age is 31536000";
 }
+
+setting plugins => {
+    RequireSSL => { https_host => 'different_host_ssl' }
+};
+$res = dancer_response GET => '/';
+is $res->{status}, 302, "response for GET / is 200";
+is $res->{headers}->{location}, 'https://different_host_ssl/', 'redirect with https on the another host';
