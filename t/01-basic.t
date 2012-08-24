@@ -9,7 +9,7 @@ use Dancer::Test;
 use lib 't/lib';
 use TestApp;
 
-plan tests => 5;
+plan tests => 6;
 
 setting environment => 'test';
 my $res = dancer_response GET => '/';
@@ -26,3 +26,8 @@ setting plugins => {
 $res = dancer_response GET => '/';
 is $res->{status}, 302, "response for GET / is 200";
 is $res->{headers}->{location}, 'https://different_host_ssl/', 'redirect with https on the another host';
+
+
+setting environment => 'development';
+$res = dancer_response GET => '/';
+is $res->{status}, 200, "response for GET / is 200 on development env";
