@@ -13,7 +13,7 @@ plan tests => 6;
 
 setting environment => 'test';
 my $res = dancer_response GET => '/';
-is $res->{status}, 302, "response for GET / is 200";
+is $res->{status}, 302, "response for GET / is 302";
 is $res->{headers}->{location}, 'https://localhost/', 'redirect with https';
 TODO: {
     local $TODO = 'Does work for this moment';
@@ -24,7 +24,7 @@ setting plugins => {
     RequireSSL => { https_host => 'different_host_ssl' }
 };
 $res = dancer_response GET => '/';
-is $res->{status}, 302, "response for GET / is 200";
+is $res->{status}, 302, "response for GET / is 302";
 is $res->{headers}->{location}, 'https://different_host_ssl/', 'redirect with https on the another host';
 
 
