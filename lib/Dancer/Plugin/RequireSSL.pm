@@ -5,6 +5,7 @@ use warnings;
 
 use 5.010;
 
+use Carp;
 use Dancer ':syntax';
 use Dancer::Plugin;
 
@@ -29,6 +30,32 @@ register require_ssl => sub {
     hook after => sub {
         _set_hsts_header();
     };
+};
+
+=method require_ssl_url
+
+    get '/' => require_ssl_url sub {}
+
+Redirect incoming request to https.
+
+    input: code (CodeRef) : The code of your url
+    output: none
+
+=cut
+
+register require_ssl_url => sub {
+    my $coderef = shift;
+
+    return sub {
+        my $req = request;
+
+        if (! $coderef || ref($coderef) ne 'CODE') {
+            croak 'Invalid require_ssl_url usage';
+        }
+
+        _redirect_to_ssl($req);
+        return $coderef->();
+    }
 };
 
 sub _redirect_to_ssl {
