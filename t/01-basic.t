@@ -9,7 +9,7 @@ use Dancer::Test;
 use lib 't/lib';
 use TestApp;
 
-plan tests => 6;
+plan tests => 8;
 
 setting environment => 'test';
 my $res = dancer_response GET => '/';
@@ -31,3 +31,10 @@ is $res->{headers}->{location}, 'https://different_host_ssl/', 'redirect with ht
 setting environment => 'development';
 $res = dancer_response GET => '/';
 is $res->{status}, 200, "response for GET / is 200 on development env";
+
+setting plugins => {
+    RequireSSL => { port => 42 }
+};
+$res = dancer_response GET => '/';
+is $res->{status}, 302, "response for GET / is 302";
+is $res->{headers}->{location}, 'https://different_host_ssl:42/', 'redirect with a port';

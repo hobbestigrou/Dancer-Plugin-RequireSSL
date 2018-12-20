@@ -40,7 +40,10 @@ sub _redirect_to_ssl {
             || $req->header('X-Forwarded-Proto') !~ 'https' ) {
             my $settings = plugin_setting;
             my $host     = $settings->{https_host} // $req->host;
-            my $url      = 'https://' . $host . $req->path;
+            my $port     = $settings->{port} // '';
+            my $url      = 'https://' . $host;
+
+            $url .= ":$port" . $req->path ? $port : $req->path;
 
             return redirect($url);
         }
